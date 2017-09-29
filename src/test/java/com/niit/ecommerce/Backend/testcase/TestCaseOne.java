@@ -12,12 +12,14 @@ import com.niit.ecommerce.Backend.dao.CartDao;
 import com.niit.ecommerce.Backend.dao.CartItemDao;
 import com.niit.ecommerce.Backend.dao.CategoryDao;
 import com.niit.ecommerce.Backend.dao.ProductDao;
+import com.niit.ecommerce.Backend.dao.ReviewsDao;
 import com.niit.ecommerce.Backend.dao.SupplierDao;
 import com.niit.ecommerce.Backend.dao.UserDao;
 import com.niit.ecommerce.Backend.entity.Cart;
 import com.niit.ecommerce.Backend.entity.CartItem;
 import com.niit.ecommerce.Backend.entity.Category;
 import com.niit.ecommerce.Backend.entity.Product;
+import com.niit.ecommerce.Backend.entity.Reviews;
 import com.niit.ecommerce.Backend.entity.Supplier;
 import com.niit.ecommerce.Backend.entity.User;
 
@@ -31,12 +33,14 @@ public class TestCaseOne {
 	static CartDao cartDao;
 	static CategoryDao categoryDao;
 	static SupplierDao supplierDao;
+	static ReviewsDao reviewsDao;
 	User user;
 	Cart cart;
 	CartItem cartItem;
 	Product product;
 	Category category;
 	Supplier supplier;
+	Reviews reviews;
 
 	@BeforeClass
 	public static void init() {
@@ -50,6 +54,7 @@ public class TestCaseOne {
 		cartDao = (CartDao) context.getBean("cartDao");
 		categoryDao = (CategoryDao) context.getBean("categoryDao");
 		supplierDao = (SupplierDao) context.getBean("supplierDao");
+		reviewsDao = (ReviewsDao) context.getBean("reviewsDao");
 	}
 
 	// @Test // adding user
@@ -61,7 +66,7 @@ public class TestCaseOne {
 		user.setUser_firstName("meenu");
 		user.setUser_lastName("kashyap");
 		user.setPassword("7838463655");
-		//user.setRole();
+		// user.setRole();
 		user.setAddress("rohini sector-16");
 		user.setUser_gender("female");
 		user.setUser_dob("01091997");
@@ -71,7 +76,7 @@ public class TestCaseOne {
 
 	}
 
-	//@Test // add supplier
+	// @Test // add supplier
 	public void test2() {
 		supplier = new Supplier();
 		supplier.setSupplier_address("Delhi");
@@ -96,7 +101,7 @@ public class TestCaseOne {
 
 	}
 
-	@Test //adding product
+	// @Test // adding product
 	public void test4() {
 		product = new Product();
 		category = categoryDao.getCategoryByCategory_level("class 9");
@@ -333,7 +338,7 @@ public class TestCaseOne {
 
 	}
 
-	//@Test // getting cartitem and cart
+	// @Test // getting cartitem and cart
 	public void test18() {
 		product = new Product();
 		user = userDao.getUserByUsername("pavleen.sethi@gmail.com");
@@ -343,13 +348,69 @@ public class TestCaseOne {
 		long grandTotal = cartItemDao.getGrandTotal(cart);
 		cart.setCartItemCount(cartItemCount);
 		cart.setGrandTotal(grandTotal);
-		
+
 		for (CartItem c : list) {
 			System.out.println("Hello" + c.toString());
 			System.out.println(c.getProduct().getProduct_bookName());
 		}
 		assertEquals(true, cartDao.updateCart(cart));
-		cart= user.getCart();
-		System.out.println("cart"+cart.toString());
+		cart = user.getCart();
+		System.out.println("cart" + cart.toString());
+	}
+
+	// @Test //reviews add
+	public void test19() {
+		reviews = new Reviews();
+		product = productDao.getProductById((long) 35);
+		user = userDao.getUserById((long) 5);
+		reviews.setReview_stars(2);
+		reviews.setReview_message("Very Good Product");
+		reviews.setUser(user);
+		reviews.setProduct(product);
+		assertEquals(true, reviewsDao.addReviews(reviews));
+	}
+
+	// @Test //reviews average
+	public void test20() {
+		// reviews = new Reviews();
+		product = productDao.getProductById((long) 35);
+		if (product.isProduct_activeIs() == true) {
+			List<Reviews> list = reviewsDao.getAverageRatingOfProduct(product);
+			int listlength = list.size();
+			int totalReview = 0;
+			for (Reviews r : list) {
+				if (r.isReview_enabled() == true) {
+					totalReview += r.getReview_stars();
+				}
+			}
+			totalReview /= listlength;
+			System.out.println("Average :" + totalReview);
+		}
+		// assertEquals(true,reviewsDao.addReviews(reviews));
+	}
+
+	@Test // reviews of user
+	public void test21() {
+		// reviews = new Reviews();
+		// product = productDao.getProductById((long) 35);
+		user = userDao.getUserById((long) 6);
+		
+		if (user.isEnabled() == true) {
+			List<Reviews> list = reviewsDao.getAllReviewsOfUser(user);
+			int listlength = list.size();
+			System.out.println("Size is "+listlength);
+			// int totalReview = 0;
+			for (Reviews r : list) {
+				System.out.println("Rating :" + r.getReview_message());
+				if (r.isReview_enabled() == true) {
+					// totalReview +=r.getReview_stars();
+					System.out.println("Rating :" + r.toString());
+				}
+
+			}
+
+			// System.out.println("Average :"+totalReview);}
+			// assertEquals(true,reviewsDao.addReviews(reviews));
+		}
 	}
 }

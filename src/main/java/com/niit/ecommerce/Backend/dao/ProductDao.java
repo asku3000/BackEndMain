@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.niit.ecommerce.Backend.entity.Category;
 import com.niit.ecommerce.Backend.entity.Product;
-import com.niit.ecommerce.Backend.entity.Supplier;
 
 public interface ProductDao {
 
