@@ -1,11 +1,13 @@
 package com.niit.ecommerce.Backend.dao;
 
+import java.util.List;
+
 import com.niit.ecommerce.Backend.entity.User;
 
 public interface UserDao {
 
 	public User getUserByUsername(String email);
-
+	
 	boolean add(User user);
 
 	boolean update(User user);
@@ -15,5 +17,7 @@ public interface UserDao {
 	public User getUserById(Long user_id);
 
 	public User checkForLogin(String email, String password);
+	
+	public List<User> getAllUsers();
 
 }

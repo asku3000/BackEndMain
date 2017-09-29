@@ -19,5 +19,7 @@ public interface SupplierDao {
 	public List<Supplier> getAllSupplier();
 
 	public List<Supplier> getAllActiveSupplier();
+	
+	public Supplier getSupplierById(Long supplier_id);
 
 }

@@ -107,4 +107,15 @@ public class SupplierDaoImpl implements SupplierDao {
 
 	}
 
+	@Override
+	public Supplier getSupplierById(Long supplier_id) {
+		try {
+			return sessionFactory.getCurrentSession().get(Supplier.class, Long.valueOf(supplier_id));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println(ex);
+			return null;
+		}
+	}
+
 }

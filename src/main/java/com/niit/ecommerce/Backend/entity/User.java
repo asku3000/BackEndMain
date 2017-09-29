@@ -37,6 +37,7 @@ public class User implements Serializable {
 	private String user_dob;
 	private String user_gender;
 	private String user_state;
+	private int user_status=1;
 
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
 	private Cart cart;
@@ -145,11 +146,20 @@ public class User implements Serializable {
 		this.user_state = user_state;
 	}
 
+	public int getUser_status() {
+		return user_status;
+	}
+
+	public void setUser_status(int user_status) {
+		this.user_status = user_status;
+	}
+
 	@Override
 	public String toString() {
 		return "User [user_id=" + user_id + ", user_firstName=" + user_firstName + ", user_lastName=" + user_lastName
 				+ ", email=" + email + ", password=" + password + ", address=" + address + ", contact=" + contact
-				+ ", role=" + role + ", enabled=" + enabled + ", cart=" + cart.getCart_Id() + "]";
+				+ ", role=" + role + ", enabled=" + enabled + ", user_dob=" + user_dob + ", user_gender=" + user_gender
+				+ ", user_state=" + user_state + ", user_status=" + user_status + ", cart=" + cart.getCart_Id() + "]";
 	}
 
 }

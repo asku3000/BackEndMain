@@ -142,14 +142,44 @@ public class ProductDaoImpl implements ProductDao {
 		name = name.toLowerCase();
 		String search = "FROM Product where PRODUCT_BOOKNAME like lower(:parameter)";
 		Query<Product> query = sessionFactory.getCurrentSession().createQuery(search, Product.class);
-		query.setParameter("parameter",'%'+ name +'%');
-		try{
-			 return query.getResultList();
-		}catch(Exception ex){
+		query.setParameter("parameter", '%' + name + '%');
+		try {
+			return query.getResultList();
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.out.println(ex);
 			return null;
 		}
+	}
+
+	@Override
+	public Product getProductByName(String product_name) {
+		String search = "FROM Product where PRODUCT_BOOKNAME = :parameter";
+		Query<Product> query = sessionFactory.getCurrentSession().createQuery(search, Product.class);
+		query.setParameter("parameter", product_name);
+		try {
+			return query.getSingleResult();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println(ex);
+			return null;
+		}
+	}
+
+	@Override
+	public List<Product> getProductBySupplierId(Long supplier_id) {
+		String search = "FROM Product where SUPPLIER_ID = :parameter";
+		Query<Product> query = sessionFactory.getCurrentSession().createQuery(search, Product.class);
+		query.setParameter("parameter", supplier_id);
+		try {
+			return query.getResultList();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println(ex);
+			return null;
+		}
+
 	}
 
 }

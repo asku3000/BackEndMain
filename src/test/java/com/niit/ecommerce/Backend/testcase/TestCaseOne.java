@@ -52,18 +52,18 @@ public class TestCaseOne {
 		supplierDao = (SupplierDao) context.getBean("supplierDao");
 	}
 
-	//@Test // adding user
+	// @Test // adding user
 	public void test1() {
 		user = new User();
-		user.setContact("9560455543");
-		user.setEmail("mayank@gmail.com");
+		user.setContact("9811219960");
+		user.setEmail("meenukashyap@gmail.com");
 		user.setEnabled(true);
-		user.setUser_firstName("mayank");
-		user.setUser_lastName("kumar");
-		user.setPassword("9560455543");
-		user.setRole("admin");
+		user.setUser_firstName("meenu");
+		user.setUser_lastName("kashyap");
+		user.setPassword("7838463655");
+		//user.setRole();
 		user.setAddress("rohini sector-16");
-		user.setUser_gender("male");
+		user.setUser_gender("female");
 		user.setUser_dob("01091997");
 		user.setUser_state("Delhi");
 
@@ -71,13 +71,13 @@ public class TestCaseOne {
 
 	}
 
-	// @Test // add supplier
+	//@Test // add supplier
 	public void test2() {
 		supplier = new Supplier();
 		supplier.setSupplier_address("Delhi");
-		supplier.setSupplier_brandName("bookbag.com");
-		supplier.setSupplier_companyName("ashish union pvt. ltd.");
-		supplier.setSupplier_email("admin@bookbag.com");
+		supplier.setSupplier_brandName("doodass");
+		supplier.setSupplier_companyName("Mayank union pvt. ltd.");
+		supplier.setSupplier_email("mayank@bookbag.com");
 		supplier.setSupplier_enabled(true);
 		supplier.setSupplier_password("7838463655");
 		supplier.setSupplier_phoneNo("7838463655");
@@ -85,7 +85,7 @@ public class TestCaseOne {
 		assertEquals(true, supplierDao.addSupplier(supplier));
 	}
 
-	//@Test // Category Add
+	// @Test // Category Add
 	public void test3() {
 		category = new Category();
 		category.setCategory_enabled(true);
@@ -96,22 +96,23 @@ public class TestCaseOne {
 
 	}
 
-	//@Test //adding product
+	@Test //adding product
 	public void test4() {
 		product = new Product();
 		category = categoryDao.getCategoryByCategory_level("class 9");
-		supplier = supplierDao.getSupplierByBrandName("bookbag.com");
+		supplier = supplierDao.getSupplierByBrandName("doodass");
 		product.setProduct_activeIs(true);
 		product.setProduct_author("ncert");
-		product.setProduct_bookName("Kshitij - hindi class 9");
-		product.setProduct_description("this is brand new ncert book for class 9");
-		product.setProduct_imgUrl("resources/Images/ncertclass9hindishtij.png");
-		product.setProduct_language("english");
-		product.setProduct_price((long) 65);
+		product.setProduct_bookName("manika sanskrit class 9");
+		product.setProduct_description("this is sanskrit text book, brand new ncert book for class 9");
+		product.setProduct_imgUrl("/resources/Images/ncertclass9sanskritmanika.png");
+		product.setProduct_language("hindi");
+		product.setProduct_price((long) 179);
+		product.setProduct_status("new");
 		product.setProduct_quantity(100);
 		product.setCategory(category);
 		product.setSupplier(supplier);
-		product.setProduct_status("new");
+
 		product.setProduct_publisher("ncert");
 
 		assertEquals(true, productDao.add(product));
@@ -307,12 +308,48 @@ public class TestCaseOne {
 
 	}
 
-	//@Test // searching product
+	// @Test // searching product
 	public void test15() {
 		List<Product> list = productDao.searchProductByProductName("math");
 		for (Product p : list) {
 			System.out.println(p.toString());
 		}
 
+	}
+
+	// @Test //update product
+	public void test16() {
+		product = productDao.getProductById((long) 34);
+		product.setProduct_imgUrl("");
+	}
+
+	// @Test //search product
+	public void test17() {
+		List<Product> product = productDao.searchProductByProductName("vitan");
+		//
+		for (Product p : product) {
+			System.out.println(p.toString() + "hello");
+		}
+
+	}
+
+	//@Test // getting cartitem and cart
+	public void test18() {
+		product = new Product();
+		user = userDao.getUserByUsername("pavleen.sethi@gmail.com");
+		cart = user.getCart();
+		List<CartItem> list = cartItemDao.cartItemGetByCart(cart);
+		int cartItemCount = cartItemDao.getTotalQuantity(cart);
+		long grandTotal = cartItemDao.getGrandTotal(cart);
+		cart.setCartItemCount(cartItemCount);
+		cart.setGrandTotal(grandTotal);
+		
+		for (CartItem c : list) {
+			System.out.println("Hello" + c.toString());
+			System.out.println(c.getProduct().getProduct_bookName());
+		}
+		assertEquals(true, cartDao.updateCart(cart));
+		cart= user.getCart();
+		System.out.println("cart"+cart.toString());
 	}
 }

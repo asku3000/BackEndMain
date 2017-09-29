@@ -31,14 +31,14 @@ public class Cart implements Serializable {
 
 	private int cartItemCount;
 
-	private long grandTotal;// 2. changes done
+	private long grandTotal;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_id")
 	private User user;
 
 	@JsonBackReference
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "cart", orphanRemoval=true)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, mappedBy = "cart")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private List<CartItem> cartList = new ArrayList<CartItem>(0);
 

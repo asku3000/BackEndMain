@@ -1,5 +1,7 @@
 package com.niit.ecommerce.Backend.daoImpl;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,6 +103,17 @@ public class UserDaoImpl implements UserDao {
 			return null;
 		}
 
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		String getusers = "FROM User";
+		Query<User> query = sessionFactory.getCurrentSession().createQuery(getusers, User.class);
+		try {
+			return query.getResultList();
+		} catch (Exception ex) {
+			return null;
+		}
 	}
 
 }
