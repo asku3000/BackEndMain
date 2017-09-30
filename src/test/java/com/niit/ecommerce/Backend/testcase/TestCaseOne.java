@@ -358,16 +358,22 @@ public class TestCaseOne {
 		System.out.println("cart" + cart.toString());
 	}
 
-	// @Test //reviews add
+	@Test //reviews add
 	public void test19() {
 		reviews = new Reviews();
 		product = productDao.getProductById((long) 35);
 		user = userDao.getUserById((long) 5);
+		reviews=reviewsDao.getReviewsByUserAndProduct(product, user);
+		if(reviews == null){
 		reviews.setReview_stars(2);
 		reviews.setReview_message("Very Good Product");
 		reviews.setUser(user);
 		reviews.setProduct(product);
 		assertEquals(true, reviewsDao.addReviews(reviews));
+		}else{
+			System.out.println("Helloo You cant give review again to same product");
+		}
+		
 	}
 
 	// @Test //reviews average
@@ -389,16 +395,16 @@ public class TestCaseOne {
 		// assertEquals(true,reviewsDao.addReviews(reviews));
 	}
 
-	@Test // reviews of user
+	//@Test // reviews of user
 	public void test21() {
 		// reviews = new Reviews();
 		// product = productDao.getProductById((long) 35);
 		user = userDao.getUserById((long) 6);
-		
+
 		if (user.isEnabled() == true) {
 			List<Reviews> list = reviewsDao.getAllReviewsOfUser(user);
 			int listlength = list.size();
-			System.out.println("Size is "+listlength);
+			System.out.println("Size is " + listlength);
 			// int totalReview = 0;
 			for (Reviews r : list) {
 				System.out.println("Rating :" + r.getReview_message());
@@ -412,5 +418,23 @@ public class TestCaseOne {
 			// System.out.println("Average :"+totalReview);}
 			// assertEquals(true,reviewsDao.addReviews(reviews));
 		}
+	}
+
+	//@Test // review display
+	public void test22() {
+		product = productDao.getProductById((long) 35);
+		if (product.isProduct_activeIs() == true) {
+			List<Reviews> list = reviewsDao.getAllReviewsByProductId(product);
+			int listlength = list.size();
+			// int totalReview = 0;
+			for (Reviews r : list) {
+				if (r.isReview_enabled() == true) {
+					// totalReview += r.getReview_stars();
+					System.out.println("reviews ;" + r.toString());
+				}
+			}
+
+		}
+
 	}
 }

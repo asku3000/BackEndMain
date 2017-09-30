@@ -59,7 +59,7 @@ public class ReviewsDaoImpl implements ReviewsDao {
 
 	@Override
 	public List<Reviews> getAllReviewsByProductId(Product product) {
-		String getreview = "FROM Reviews where product_Id=:paramter";
+		String getreview = "FROM Reviews where product_Id=:parameter";
 		Query<Reviews> query = sessionFactory.getCurrentSession().createQuery(getreview, Reviews.class);
 		query.setParameter("parameter", product);
 		try {
@@ -83,7 +83,7 @@ public class ReviewsDaoImpl implements ReviewsDao {
 			System.out.println(ex);
 			return null;
 		}
-		
+
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class ReviewsDaoImpl implements ReviewsDao {
 
 	@Override
 	public Reviews getReviewById(Long review_id) {
-		String getreview = "FROM Reviews where review_id=:paramter";
+		String getreview = "FROM Reviews where review_id=:parameter";
 		Query<Reviews> query = sessionFactory.getCurrentSession().createQuery(getreview, Reviews.class);
 		query.setParameter("parameter", review_id);
 		try {
@@ -110,6 +110,32 @@ public class ReviewsDaoImpl implements ReviewsDao {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.out.println(ex);
+			return null;
+		}
+	}
+
+	@Override
+	public Reviews getReviewsByUserAndProduct(Product product, User user) {
+		String getreview = "FROM Reviews where 	PRODUCT_ID = :parameter1 and USER_ID = :parameter2";
+		Query<Reviews> query = sessionFactory.getCurrentSession().createQuery(getreview, Reviews.class);
+		query.setParameter("parameter1", product);
+		query.setParameter("parameter2", user);
+		try {
+			return query.getSingleResult();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println(ex);
+			return null;
+		}
+	}
+
+	@Override
+	public List<Reviews> getAllReviews() {
+		String getReviews = "FROM Reviews";
+		Query<Reviews> query = sessionFactory.getCurrentSession().createQuery(getReviews, Reviews.class);
+		try {
+			return query.getResultList();
+		} catch (Exception ex) {
 			return null;
 		}
 	}

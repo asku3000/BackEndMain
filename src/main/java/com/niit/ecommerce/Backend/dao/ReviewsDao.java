@@ -15,11 +15,15 @@ public interface ReviewsDao {
 	public boolean updateReviews(Reviews reviews);
 	
 	public Reviews getReviewById(Long review_id);
+	
+	public List<Reviews> getAllReviews();
 
 	public List<Reviews> getAllReviewsByProductId(Product product);
 
 	public List<Reviews> getAllReviewsOfUser(User user);
 	
 	public List<Reviews> getAverageRatingOfProduct(Product product);
+	
+	public Reviews getReviewsByUserAndProduct(Product product,User user);
 
 }
