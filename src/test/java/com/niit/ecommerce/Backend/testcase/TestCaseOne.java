@@ -13,14 +13,12 @@ import com.niit.ecommerce.Backend.dao.CartItemDao;
 import com.niit.ecommerce.Backend.dao.CategoryDao;
 import com.niit.ecommerce.Backend.dao.ProductDao;
 import com.niit.ecommerce.Backend.dao.ReviewsDao;
-import com.niit.ecommerce.Backend.dao.SupplierDao;
 import com.niit.ecommerce.Backend.dao.UserDao;
 import com.niit.ecommerce.Backend.entity.Cart;
 import com.niit.ecommerce.Backend.entity.CartItem;
 import com.niit.ecommerce.Backend.entity.Category;
 import com.niit.ecommerce.Backend.entity.Product;
 import com.niit.ecommerce.Backend.entity.Reviews;
-import com.niit.ecommerce.Backend.entity.Supplier;
 import com.niit.ecommerce.Backend.entity.User;
 
 public class TestCaseOne {
@@ -32,14 +30,14 @@ public class TestCaseOne {
 	static CartItemDao cartItemDao;
 	static CartDao cartDao;
 	static CategoryDao categoryDao;
-	static SupplierDao supplierDao;
+
 	static ReviewsDao reviewsDao;
 	User user;
 	Cart cart;
 	CartItem cartItem;
 	Product product;
 	Category category;
-	Supplier supplier;
+
 	Reviews reviews;
 
 	@BeforeClass
@@ -53,42 +51,54 @@ public class TestCaseOne {
 		cartItemDao = (CartItemDao) context.getBean("cartItemDao");
 		cartDao = (CartDao) context.getBean("cartDao");
 		categoryDao = (CategoryDao) context.getBean("categoryDao");
-		supplierDao = (SupplierDao) context.getBean("supplierDao");
+
 		reviewsDao = (ReviewsDao) context.getBean("reviewsDao");
 	}
 
 	// @Test // adding user
 	public void test1() {
 		user = new User();
-		user.setContact("9811219960");
-		user.setEmail("meenukashyap@gmail.com");
+		user.setContact("7838463655");
+		user.setEmail("mayank@bookbag.com");
 		user.setEnabled(true);
-		user.setUser_firstName("meenu");
+		user.setUser_firstName("Mayank");
 		user.setUser_lastName("kashyap");
 		user.setPassword("7838463655");
-		// user.setRole();
+		user.setRole("supplier");
 		user.setAddress("rohini sector-16");
-		user.setUser_gender("female");
+		user.setUser_gender("male");
 		user.setUser_dob("01091997");
 		user.setUser_state("Delhi");
+		user.setSupplier_brandName("dodass");
+		user.setSupplier_companyName("mayank enterprises");
 
 		assertEquals(true, userDao.add(user));
 
 	}
 
-	// @Test // add supplier
-	public void test2() {
-		supplier = new Supplier();
-		supplier.setSupplier_address("Delhi");
-		supplier.setSupplier_brandName("doodass");
-		supplier.setSupplier_companyName("Mayank union pvt. ltd.");
-		supplier.setSupplier_email("mayank@bookbag.com");
-		supplier.setSupplier_enabled(true);
-		supplier.setSupplier_password("7838463655");
-		supplier.setSupplier_phoneNo("7838463655");
+	//@Test
+	public void test50() {
+		List<Product> list = productDao.getAllProductList();
+		for (Product p : list) {
+			user = userDao.getUserById((long) 8);
+			p.setUser(user);
+			productDao.update(p);
 
-		assertEquals(true, supplierDao.addSupplier(supplier));
+		}
+
 	}
+	/*
+	 * // @Test // add supplier public void test2() { supplier = new Supplier();
+	 * supplier.setSupplier_address("Delhi");
+	 * supplier.setSupplier_brandName("doodass");
+	 * supplier.setSupplier_companyName("Mayank union pvt. ltd.");
+	 * supplier.setSupplier_email("mayank@bookbag.com");
+	 * supplier.setSupplier_enabled(true);
+	 * supplier.setSupplier_password("7838463655");
+	 * supplier.setSupplier_phoneNo("7838463655");
+	 * 
+	 * assertEquals(true, supplierDao.addSupplier(supplier)); }
+	 */
 
 	// @Test // Category Add
 	public void test3() {
@@ -105,7 +115,7 @@ public class TestCaseOne {
 	public void test4() {
 		product = new Product();
 		category = categoryDao.getCategoryByCategory_level("class 9");
-		supplier = supplierDao.getSupplierByBrandName("doodass");
+		// supplier = supplierDao.getSupplierByBrandName("doodass");
 		product.setProduct_activeIs(true);
 		product.setProduct_author("ncert");
 		product.setProduct_bookName("manika sanskrit class 9");
@@ -116,7 +126,7 @@ public class TestCaseOne {
 		product.setProduct_status("new");
 		product.setProduct_quantity(100);
 		product.setCategory(category);
-		product.setSupplier(supplier);
+		// product.setSupplier(supplier);
 
 		product.setProduct_publisher("ncert");
 
@@ -358,22 +368,22 @@ public class TestCaseOne {
 		System.out.println("cart" + cart.toString());
 	}
 
-	@Test //reviews add
+	// @Test // reviews add
 	public void test19() {
 		reviews = new Reviews();
 		product = productDao.getProductById((long) 35);
 		user = userDao.getUserById((long) 5);
-		reviews=reviewsDao.getReviewsByUserAndProduct(product, user);
-		if(reviews == null){
-		reviews.setReview_stars(2);
-		reviews.setReview_message("Very Good Product");
-		reviews.setUser(user);
-		reviews.setProduct(product);
-		assertEquals(true, reviewsDao.addReviews(reviews));
-		}else{
+		reviews = reviewsDao.getReviewsByUserAndProduct(product, user);
+		if (reviews == null) {
+			reviews.setReview_stars(2);
+			reviews.setReview_message("Very Good Product");
+			reviews.setUser(user);
+			reviews.setProduct(product);
+			assertEquals(true, reviewsDao.addReviews(reviews));
+		} else {
 			System.out.println("Helloo You cant give review again to same product");
 		}
-		
+
 	}
 
 	// @Test //reviews average
@@ -395,7 +405,7 @@ public class TestCaseOne {
 		// assertEquals(true,reviewsDao.addReviews(reviews));
 	}
 
-	//@Test // reviews of user
+	// @Test // reviews of user
 	public void test21() {
 		// reviews = new Reviews();
 		// product = productDao.getProductById((long) 35);
@@ -420,7 +430,7 @@ public class TestCaseOne {
 		}
 	}
 
-	//@Test // review display
+	// @Test // review display
 	public void test22() {
 		product = productDao.getProductById((long) 35);
 		if (product.isProduct_activeIs() == true) {

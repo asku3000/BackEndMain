@@ -116,4 +116,56 @@ public class UserDaoImpl implements UserDao {
 		}
 	}
 
+	@Override
+	public List<User> getSupplierByCompanyName(String companyName) {
+		String selectsupplier = "From User where supplier_companyName like lower(:parameter)";
+		Query<User> query = sessionFactory.getCurrentSession().createQuery(selectsupplier, User.class);
+		query.setParameter("parameter", '%' + companyName + '%');
+		try {
+
+			return query.getResultList();
+		} catch (Exception ex) {
+			return null;
+		}
+
+	}
+
+	@Override
+	public User getSupplierByBrandName(String brandName) {
+		String selectsupplier = "From User where supplier_brandName like lower(:parameter)";
+		Query<User> query = sessionFactory.getCurrentSession().createQuery(selectsupplier, User.class);
+		query.setParameter("parameter", '%' + brandName + '%');
+		try {
+
+			return query.getSingleResult();
+		} catch (Exception ex) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<User> getAllSupplier() {
+		String givesupplier = "FROM Supplier where role = supplier";
+		Query<User> query = sessionFactory.getCurrentSession().createQuery(givesupplier, User.class);
+		try {
+			return query.getResultList();
+		} catch (Exception ex) {
+			return null;
+		}
+	}
+
+	@Override
+	public boolean deleteSupplierByBrandName(String brandName) {
+		User user = getSupplierByBrandName(brandName);
+		user.setEnabled(false);
+		try {
+			sessionFactory.getCurrentSession().update(user);
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println(ex);
+			return false;
+		}
+	}
+
 }

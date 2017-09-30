@@ -168,7 +168,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public List<Product> getProductBySupplierId(Long supplier_id) {
-		String search = "FROM Product where SUPPLIER_ID = :parameter";
+		String search = "FROM Product where USER_ID = :parameter";
 		Query<Product> query = sessionFactory.getCurrentSession().createQuery(search, Product.class);
 		query.setParameter("parameter", supplier_id);
 		try {

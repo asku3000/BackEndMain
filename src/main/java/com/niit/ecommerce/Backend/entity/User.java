@@ -25,19 +25,40 @@ public class User implements Serializable {
 
 	private String user_lastName;
 
+	private String supplier_companyName;
+
+	@Column(unique = true)
+	private String supplier_brandName;
+
+	public String getSupplier_companyName() {
+		return supplier_companyName;
+	}
+
+	public void setSupplier_companyName(String supplier_companyName) {
+		this.supplier_companyName = supplier_companyName;
+	}
+
+	public String getSupplier_brandName() {
+		return supplier_brandName;
+	}
+
+	public void setSupplier_brandName(String supplier_brandName) {
+		this.supplier_brandName = supplier_brandName;
+	}
+
 	@Column(unique = true)
 	private String email;
 
 	private String password;
 	private String address;
 	private String contact;
-	private String role = "CUSTOMER";
+	private String role;
 
 	private boolean enabled = true;
 	private String user_dob;
 	private String user_gender;
 	private String user_state;
-	private int user_status=1;
+	private int user_status = 1;
 
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
 	private Cart cart;
@@ -157,9 +178,10 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [user_id=" + user_id + ", user_firstName=" + user_firstName + ", user_lastName=" + user_lastName
+				+ ", supplier_companyName=" + supplier_companyName + ", supplier_brandName=" + supplier_brandName
 				+ ", email=" + email + ", password=" + password + ", address=" + address + ", contact=" + contact
 				+ ", role=" + role + ", enabled=" + enabled + ", user_dob=" + user_dob + ", user_gender=" + user_gender
-				+ ", user_state=" + user_state + ", user_status=" + user_status + ", cart=" + cart.getCart_Id() + "]";
+				+ ", user_state=" + user_state + ", user_status=" + user_status + ", cart=" + cart + "]";
 	}
 
 }

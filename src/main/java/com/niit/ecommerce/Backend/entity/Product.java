@@ -50,8 +50,8 @@ public class Product implements Serializable {
 
 	@JsonManagedReference
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "supplier_id")
-	private Supplier supplier;
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	public Category getCategory() {
 		return category;
@@ -133,12 +133,12 @@ public class Product implements Serializable {
 		this.product_language = product_language;
 	}
 
-	public Supplier getSupplier() {
-		return supplier;
+	public User getUser() {
+		return user;
 	}
 
-	public void setSupplier(Supplier supplier) {
-		this.supplier = supplier;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getProduct_status() {
@@ -160,10 +160,11 @@ public class Product implements Serializable {
 	@Override
 	public String toString() {
 		return "Product [product_Id=" + product_Id + ", product_bookName=" + product_bookName + ", product_author="
-				+ product_author + ", product_description=" + product_description + ", product_language="
-				+ product_language + ", product_imgUrl=" + product_imgUrl + ", product_price=" + product_price
-				+ ", product_quantity=" + product_quantity + ", product_activeIs=" + product_activeIs + ", category="
-				+ category.getCategory_id() + ", supplier=" + supplier.getSupplier_id() + "]";
+				+ product_author + ", product_publisher=" + product_publisher + ", product_description="
+				+ product_description + ", product_language=" + product_language + ", product_imgUrl=" + product_imgUrl
+				+ ", product_price=" + product_price + ", product_quantity=" + product_quantity + ", product_activeIs="
+				+ product_activeIs + ", product_status=" + product_status + ", category=" + category.getCategory_level() + ", user="
+				+ user.getUser_firstName() + "]";
 	}
 
 }
