@@ -15,4 +15,6 @@ public interface CategoryDao {
 
 	public Category getCategoryByCategory_level(String category_level);
 
+	public List<Category> getAllCategoryLevel();
+
 }

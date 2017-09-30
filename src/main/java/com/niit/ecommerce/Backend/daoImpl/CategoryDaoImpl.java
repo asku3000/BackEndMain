@@ -83,4 +83,16 @@ public class CategoryDaoImpl implements CategoryDao {
 		}
 	}
 
+	@Override
+	public List<Category> getAllCategoryLevel() {
+		String selectCategory = "FROM Category";
+		Query<Category> query = sessionFactory.getCurrentSession().createQuery(selectCategory, Category.class);
+		try {
+
+			return query.getResultList();
+		} catch (Exception ex) {
+			return null;
+		}
+	}
+
 }
