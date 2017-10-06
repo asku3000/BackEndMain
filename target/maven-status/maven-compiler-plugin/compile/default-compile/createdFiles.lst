@@ -1,8 +1,10 @@
 com\niit\ecommerce\Backend\dao\CartItemDao.class
+com\niit\ecommerce\Backend\entity\Reviews.class
 com\niit\ecommerce\Backend\dao\ProductDao.class
 com\niit\ecommerce\Backend\entity\CartItem.class
+com\niit\ecommerce\Backend\dao\ReviewsDao.class
+com\niit\ecommerce\Backend\daoImpl\PaymentDaoImpl.class
 com\niit\ecommerce\Backend\config\HibernateConfig.class
-com\niit\ecommerce\Backend\dao\SupplierDao.class
 com\niit\ecommerce\Backend\dao\UserDao.class
 com\niit\ecommerce\Backend\dao\CartDao.class
 com\niit\ecommerce\Backend\daoImpl\CategoryDaoImpl.class
@@ -11,10 +13,11 @@ com\niit\ecommerce\Backend\daoImpl\UserDaoImpl.class
 com\niit\ecommerce\Backend\entity\Category.class
 com\niit\ecommerce\Backend\entity\Cart.class
 com\niit\ecommerce\Backend\daoImpl\CartDaoImpl.class
+com\niit\ecommerce\Backend\daoImpl\ReviewsDaoImpl.class
+com\niit\ecommerce\Backend\entity\Payment.class
 com\niit\ecommerce\Backend\daoImpl\CartItemDaoImpl.class
 com\niit\ecommerce\Backend\entity\User.class
-com\niit\ecommerce\Backend\daoImpl\SupplierDaoImpl.class
 com\niit\ecommerce\Backend\dao\CategoryDao.class
 com\niit\ecommerce\Backend\daoImpl\ProductDaoImpl.class
+com\niit\ecommerce\Backend\dao\PaymentDao.class
 com\niit\ecommerce\Backend\App.class
-com\niit\ecommerce\Backend\entity\Supplier.class

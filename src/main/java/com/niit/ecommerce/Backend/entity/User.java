@@ -30,22 +30,7 @@ public class User implements Serializable {
 	@Column(unique = true)
 	private String supplier_brandName;
 
-	public String getSupplier_companyName() {
-		return supplier_companyName;
-	}
-
-	public void setSupplier_companyName(String supplier_companyName) {
-		this.supplier_companyName = supplier_companyName;
-	}
-
-	public String getSupplier_brandName() {
-		return supplier_brandName;
-	}
-
-	public void setSupplier_brandName(String supplier_brandName) {
-		this.supplier_brandName = supplier_brandName;
-	}
-
+	
 	@Column(unique = true)
 	private String email;
 
@@ -174,6 +159,22 @@ public class User implements Serializable {
 	public void setUser_status(int user_status) {
 		this.user_status = user_status;
 	}
+	public String getSupplier_companyName() {
+		return supplier_companyName;
+	}
+
+	public void setSupplier_companyName(String supplier_companyName) {
+		this.supplier_companyName = supplier_companyName;
+	}
+
+	public String getSupplier_brandName() {
+		return supplier_brandName;
+	}
+
+	public void setSupplier_brandName(String supplier_brandName) {
+		this.supplier_brandName = supplier_brandName;
+	}
+
 
 	@Override
 	public String toString() {
